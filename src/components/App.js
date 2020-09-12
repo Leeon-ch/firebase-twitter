@@ -3,8 +3,6 @@ import AppRouter from "components/Router";
 import { authService } from "firebaseConfig";
 
 function App() {
-  // if user is logged in? true
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
   // if firebase is initialized? true
   const [init, setInit] = useState(false);
   // current user
@@ -13,10 +11,7 @@ function App() {
   useEffect(() => {
     authService.onAuthStateChanged((user) => {
       if (user) {
-        setIsLoggedIn(true);
         setUserObj(user);
-      } else {
-        setIsLoggedIn(false);
       }
       setInit(true);
     });
@@ -24,7 +19,7 @@ function App() {
   return (
     <>
       {init ? (
-        <AppRouter isLoggedIn={isLoggedIn} userObj={userObj} />
+        <AppRouter isLoggedIn={Boolean(userObj)} userObj={userObj} />
       ) : (
         "Initializing..."
       )}

@@ -21,18 +21,13 @@ function Auth() {
     // onSubmit prevent 는 state를 보존하기 위해서 필요
     event.preventDefault();
     try {
-      let data;
       if (newAccount) {
         // create a new account
-        data = await authService.createUserWithEmailAndPassword(
-          email,
-          password
-        );
+        await authService.createUserWithEmailAndPassword(email, password);
       } else {
         // log in
-        data = await authService.signInWithEmailAndPassword(email, password);
+        await authService.signInWithEmailAndPassword(email, password);
       }
-      console.log(data);
     } catch (error) {
       setError(error.message);
     }
@@ -49,8 +44,7 @@ function Auth() {
     } else if (name === "github") {
       provider = new firebaseInstance.auth.GithubAuthProvider();
     }
-    const data = await authService.signInWithPopup(provider);
-    console.log(data);
+    await authService.signInWithPopup(provider);
   };
   return (
     <div>
